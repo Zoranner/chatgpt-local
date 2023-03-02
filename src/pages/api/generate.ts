@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro'
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser'
+import fetch from 'node-fetch'
+import { HttpsProxyAgent } from 'https-proxy-agent'
 
 const apiKey = import.meta.env.OPENAI_API_KEY
 
@@ -25,7 +27,10 @@ export const post: APIRoute = async (context) => {
       temperature: 0.6,
       stream: true,
     }),
+    redirect: 'follow',
+    agent: new HttpsProxyAgent('http://localhost:7890'),
   })
+  console.debug(completion)
 
   const stream = new ReadableStream({
     async start(controller) {
@@ -47,7 +52,7 @@ export const post: APIRoute = async (context) => {
             //   ],
             // }
             const json = JSON.parse(data)
-            const text = json.choices[0].delta?.content            
+            const text = json.choices[0].delta?.content
             const queue = encoder.encode(text)
             controller.enqueue(queue)
           } catch (e) {
