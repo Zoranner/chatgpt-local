@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'chatgpt-local'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA8E4431806147D2B972C17733BCA904 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_869560082DAC43B0BCED563796E7CEEE }}
           package: .
