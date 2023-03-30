@@ -80,14 +80,41 @@ A demo repo based on [OpenAI GPT-3.5 Turbo API.](https://platform.openai.com/doc
 
 
 ### Deploy with Docker
+
 Before deploying the app, please make sure `.env` is configured normally.
 
+Environment variables refer to the documentation below. [Docker Hub address](https://hub.docker.com/r/ddiu8081/chatgpt-demo).
+
+**Direct run**
 ```bash
-# build
-docker-compose build .
-# run
-docker-compose up -d
-# stop
+docker run --name=chatgpt-demo --volume=/path/.env:/usr/src/.env:rw -p 3000:3000 --restart=always -d ddiu8081/chatgpt-demo:latest
+```
+
+**Docker compose**
+```yml
+version: '3'
+
+services:
+  chatgpt-demo:
+    image: ddiu8081/chatgpt-demo:latest
+    container_name: chatgpt-demo
+    restart: always
+    ports:
+        - "3000:3000"
+    environment:
+      OPENAI_API_KEY: 
+      HTTPS_PROXY: 
+      OPENAI_API_BASE_URL: 
+      HEAD_SCRIPTS: 
+      SECRET_KEY: 
+      SITE_PASSWORD: 
+      OPENAI_API_MODEL: 
+```
+
+```bash
+# start
+docker compose up -d
+# down
 docker-compose down
 ```
 

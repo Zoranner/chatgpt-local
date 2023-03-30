@@ -21,7 +21,7 @@ const { title } = Astro.props;
     {
       import.meta.env.HEAD_SCRIPTS
         ? (
-        <Fragment set:html={import.meta.env.HEAD_SCRIPTS} />
+        <Fragment set:html={import.meta.env.HEAD_SCRIPTS } />
           )
         : null
     }

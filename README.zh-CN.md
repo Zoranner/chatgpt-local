@@ -77,14 +77,38 @@
 ![image](https://cdn.staticaly.com/gh/yzh990918/static@master/20230310/image.e0n7c0zaen4.webp)
 
 ### 部署在 Docker
-在部署应用之前，请确保 `.env` 配置正常。
+部署之前请确认 `.env` 文件正常配置，环境变量参考下方文档, [Docker Hub address](https://hub.docker.com/r/ddiu8081/chatgpt-demo).
+
+**一键运行**
+```bash
+docker run --name=chatgpt-demo --volume=/path/.env:/usr/src/.env:rw -p 3000:3000 --restart=always -d ddiu8081/chatgpt-demo:latest
+```
+
+**使用 Docker compose**
+```yml
+version: '3'
+
+services:
+  chatgpt-demo:
+    image: ddiu8081/chatgpt-demo:latest
+    container_name: chatgpt-demo
+    restart: always
+    ports:
+        - "3000:3000"
+    environment:
+      OPENAI_API_KEY: 
+      HTTPS_PROXY: 
+      OPENAI_API_BASE_URL: 
+      HEAD_SCRIPTS: 
+      SECRET_KEY: 
+      SITE_PASSWORD: 
+      OPENAI_API_MODEL: 
+```
 
 ```bash
-# build
-docker-compose build .
-# run
-docker-compose up -d
-# stop
+# start
+docker compose up -d
+# down
 docker-compose down
 ```
 
