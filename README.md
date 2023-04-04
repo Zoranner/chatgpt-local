@@ -87,8 +87,10 @@ Environment variables refer to the documentation below. [Docker Hub address](htt
 
 **Direct run**
 ```bash
-docker run --name=chatgpt-demo --volume=/path/.env:/usr/src/.env:rw -p 3000:3000 --restart=always -d ddiu8081/chatgpt-demo:latest
+docker run --name=chatgpt-demo --volume=/path/.env:/usr/src/.env:rw -p 3000:3000 -d ddiu8081/chatgpt-demo:latest
 ```
+`/path/.env` represents the path to the local environment variable.
+
 
 **Docker compose**
 ```yml
@@ -100,15 +102,9 @@ services:
     container_name: chatgpt-demo
     restart: always
     ports:
-        - "3000:3000"
-    environment:
-      OPENAI_API_KEY: 
-      HTTPS_PROXY: 
-      OPENAI_API_BASE_URL: 
-      HEAD_SCRIPTS: 
-      SECRET_KEY: 
-      SITE_PASSWORD: 
-      OPENAI_API_MODEL: 
+      - '3000:3000'
+    volumes:
+      - .env:/usr/src/.env
 ```
 
 ```bash
@@ -133,7 +129,7 @@ You can control the website through environment variables.
 | `OPENAI_API_BASE_URL` | Custom base url for OpenAI API. | `https://api.openai.com` |
 | `HEAD_SCRIPTS` | Inject analytics or other scripts before `</head>` of the page | `null` |
 | `SECRET_KEY` | Secret string for the project. Use for generating signatures for API calls | `null` |
-| `SITE_PASSWORD` | Set password for site. If not set, site will be public | `null` |
+| `SITE_PASSWORD` | Set password for site, support multiple password separated by comma. If not set, site will be public | `null` |
 | `OPENAI_API_MODEL` | ID of the model to use. [List models](https://platform.openai.com/docs/api-reference/models/list) | `gpt-3.5-turbo` |
 
 
